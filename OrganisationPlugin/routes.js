@@ -14,7 +14,7 @@ router.route('/:_id/employee')
     .get(orgController.getAllEmployeesFromOrganisation)
     .delete(orgController.deleteAllEmployeesFromOrganisation)
 
-route.route('/:_id/employee/:empId')
+router.route('/:_id/employee/:empId')
     .get(orgController.getEmployeeFromOrganisation)
     .delete(orgController.removeEmployeeFromOrganisation)
     .put(orgController.addEmployeeInOrganisation)

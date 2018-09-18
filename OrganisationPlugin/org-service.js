@@ -30,9 +30,9 @@ class orgServices {
     async getAllEmployeesFromOrganisation(orgId) {
         try {
             let employees = await orgModel.findById(orgId)
-                .populate('Employee')
+                .populate('Employee', ['firstName', 'lastName'])
                 .exec()
-            res.json(employees);
+            return employees;
         }
         catch (error) {
             res.send(error);
@@ -41,8 +41,15 @@ class orgServices {
 
     async deleteAllEmployeesFromOrganisation(orgId) {
         try {
-            let employees = await orgService.deleteAllEmployeesFromOrganisation(req.params._id);
-            res.json(employees);
+            let result = orgModel.findById(orgId)
+                .populate('Employee')
+                .exec((error, employees) => {
+                    if (error)
+                        throw error;
+                    employees = [];
+                    employees.save();
+                })
+            return result;
         }
         catch (error) {
             res.send(error);
@@ -51,10 +58,10 @@ class orgServices {
 
     async getEmployeeFromOrganisation(orgId, empId) {
         try {
-            let employees = await orgModel.findById(orgId)
-                .populate('Employee', {}, {}, { _id: empId })
+            let employee = await orgModel.findById(orgId)
+                .populate('Employee', ['firstName', 'lastName'], null, { _id: empId })
                 .exec()
-            res.json(employees);
+            return employee;
         }
         catch (error) {
             res.send(error);
@@ -63,8 +70,17 @@ class orgServices {
 
     async removeEmployeeFromOrganisation(orgId, empId) {
         try {
-            let employees = await orgModel.
-            res.json(employees);
+            let result = orgModel.findById(orgId)
+                .populate('Employee')
+                .exec((error, employees) => {
+                    if (error)
+                        throw error;
+                    if (employees.indexOf(empId) !== -1) {
+                        employees.splice(employees.indexOf(empId), 1);
+                        employees.save();
+                    }
+                })
+            return result;
         }
         catch (error) {
             res.send(error);
@@ -73,8 +89,15 @@ class orgServices {
 
     async addEmployeeInOrganisation(orgId, empId) {
         try {
-            let employees = await orgService.getAllEmployeesFromOrganisation(req.params._id, req.params.empId);
-            res.json(employees);
+            let result = orgModel.findById(orgId)
+                .populate('Employee')
+                .exec((error, employees) => {
+                    if (error)
+                        throw error;
+                    employees.push(empId);
+                    employees.save();
+                })
+            return result;
         }
         catch (error) {
             res.send(error);
