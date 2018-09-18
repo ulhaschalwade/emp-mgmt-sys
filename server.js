@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const Constants = require('./constants');
 const LoggerHelper = require('./logger-helper');
 
@@ -12,8 +13,8 @@ const usersPluginRoutes = require('./UserPlugin/routes');
 
 
 class TestServer {
-    constructor(){
-        this.emsApp= express();
+    constructor() {
+        this.emsApp = express();
     }
 
     start() {
@@ -31,13 +32,23 @@ class TestServer {
         //middlewares
         this.emsApp.use(bodyParser.urlencoded({ extended: true }))
         this.emsApp.use(bodyParser.json());
+        this.emsApp.use(cors({
+            origin: (origin, callback) => {
+                console.log(origin)
+                if (Constants.ALLOWED_REQUEST_ORIGINS.indexOf(origin) !== -1) {
+                    callback(null, true);
+                } else {
+                    callback(new Error('Accessing this resource is not allowed due to CORS!!'));
+                }
+            }
+        }))
     }
 
     setupRoutes() {
         //Register plugins/routes
         this.emsApp.use('/api/employee', empPluginRoutes);
         this.emsApp.use('/api/organisation', orgPluginRoutes);
-        this.emsApp.use('/api/user',usersPluginRoutes);
+        this.emsApp.use('/api/user', usersPluginRoutes);
     }
 
     async initializeLogger() {

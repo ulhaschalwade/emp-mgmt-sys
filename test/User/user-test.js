@@ -24,8 +24,10 @@ describe('User', () => {
         }).timeout(5000);
         it(`should return status code as 404`, (done) => {
             request.get({ uri: baseUri + '/api/user/external/ulhaschalwade1' }, (error, response, body) => {
-                console.log(response.statusCode)
                 expect(response.statusCode).to.equal(200);
+                let result = JSON.parse(body);
+                let user = JSON.parse(result);
+                expect(user).to.have.property('message', 'Not Found');
                 done();
             })
         }).timeout(5000);
