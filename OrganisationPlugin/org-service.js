@@ -1,4 +1,5 @@
 const orgModel = require('./schema');
+const EmployeeModel = require('../EmployeePlugin/schema');
 class orgServices {
     async getAllOrganisations() {
         let organisations = await orgModel.find();
@@ -26,9 +27,58 @@ class orgServices {
         return newOrganisation;
     }
 
-    async getAllEmployeesOfAnOrg(orgId){
-        let employees= await orgModel.findById(orgId).populate('employees');
-        return employees;
+    async getAllEmployeesFromOrganisation(orgId) {
+        try {
+            let employees = await orgModel.findById(orgId)
+                .populate('Employee')
+                .exec()
+            res.json(employees);
+        }
+        catch (error) {
+            res.send(error);
+        }
+    }
+
+    async deleteAllEmployeesFromOrganisation(orgId) {
+        try {
+            let employees = await orgService.deleteAllEmployeesFromOrganisation(req.params._id);
+            res.json(employees);
+        }
+        catch (error) {
+            res.send(error);
+        }
+    }
+
+    async getEmployeeFromOrganisation(orgId, empId) {
+        try {
+            let employees = await orgModel.findById(orgId)
+                .populate('Employee', {}, {}, { _id: empId })
+                .exec()
+            res.json(employees);
+        }
+        catch (error) {
+            res.send(error);
+        }
+    }
+
+    async removeEmployeeFromOrganisation(orgId, empId) {
+        try {
+            let employees = await orgModel.
+            res.json(employees);
+        }
+        catch (error) {
+            res.send(error);
+        }
+    }
+
+    async addEmployeeInOrganisation(orgId, empId) {
+        try {
+            let employees = await orgService.getAllEmployeesFromOrganisation(req.params._id, req.params.empId);
+            res.json(employees);
+        }
+        catch (error) {
+            res.send(error);
+        }
     }
 }
 module.exports = new orgServices();

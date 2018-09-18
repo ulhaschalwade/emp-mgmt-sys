@@ -9,6 +9,15 @@ router.route('/:_id')
     .get(orgController.getOrganisationById)
     .delete(orgController.deleteOrganisationById)
     .put(orgController.updateOrganisationById)
-router.get('/:orgId/employees', orgController.getAllEmployeesFromOrganisation)
+
+router.route('/:_id/employee')
+    .get(orgController.getAllEmployeesFromOrganisation)
+    .delete(orgController.deleteAllEmployeesFromOrganisation)
+
+route.route('/:_id/employee/:empId')
+    .get(orgController.getEmployeeFromOrganisation)
+    .delete(orgController.removeEmployeeFromOrganisation)
+    .put(orgController.addEmployeeInOrganisation)
+
 
 module.exports = router;

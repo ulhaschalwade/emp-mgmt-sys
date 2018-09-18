@@ -48,6 +48,7 @@ class orgController {
             res.send(error);
         }
     }
+    
     async addNewOrganisation(req, res) {
         try {
             let newOrgObj = {
@@ -61,9 +62,50 @@ class orgController {
             res.send(error);
         }
     }
+
     async getAllEmployeesFromOrganisation(req, res) {
         try {
-            let employees = await orgService.getAllEmployeesFromOrganisation(req.params.orgId);
+            let employees = await orgService.getAllEmployeesFromOrganisation(req.params._id);
+            res.json(employees);
+        }
+        catch (error) {
+            res.send(error);
+        }
+    }
+
+    async deleteAllEmployeesFromOrganisation(req, res) {
+        try {
+            let employees = await orgService.deleteAllEmployeesFromOrganisation(req.params._id);
+            res.json(employees);
+        }
+        catch (error) {
+            res.send(error);
+        }
+    }
+
+    async getEmployeeFromOrganisation(req, res) {
+        try {
+            let employees = await orgService.getEmployeeFromOrganisation(req.params._id, req.params.empId);
+            res.json(employees);
+        }
+        catch (error) {
+            res.send(error);
+        }
+    }
+
+    async removeEmployeeFromOrganisation(req, res) {
+        try {
+            let employees = await orgService.getAllEmployeesFromOrganisation(req.params._id, req.params.empId);
+            res.json(employees);
+        }
+        catch (error) {
+            res.send(error);
+        }
+    }
+
+    async addEmployeeInOrganisation(req, res) {
+        try {
+            let employees = await orgService.getAllEmployeesFromOrganisation(req.params._id, req.params.empId);
             res.json(employees);
         }
         catch (error) {
