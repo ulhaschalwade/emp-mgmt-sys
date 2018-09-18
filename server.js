@@ -8,6 +8,7 @@ const LoggerHelper = require('./logger-helper');
 //routes
 const empPluginRoutes = require('./EmployeePlugin/routes');
 const orgPluginRoutes = require('./OrganisationPlugin/routes');
+const usersPluginRoutes = require('./UserPlugin/routes');
 
 
 class TestServer {
@@ -36,6 +37,7 @@ class TestServer {
         //Register plugins/routes
         this.emsApp.use('/api/employee', empPluginRoutes);
         this.emsApp.use('/api/organisation', orgPluginRoutes);
+        this.emsApp.use('/api/user',usersPluginRoutes);
     }
 
     async initializeLogger() {
