@@ -1,5 +1,4 @@
 const orgModel = require('./schema');
-const EmployeeModel = require('../EmployeePlugin/schema');
 class orgServices {
     async getAllOrganisations() {
         let organisations = await orgModel.find();

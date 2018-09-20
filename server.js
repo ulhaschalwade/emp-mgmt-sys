@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const Constants = require('./constants');
+const config = require('config');
 const LoggerHelper = require('./logger-helper');
 
 //routes
@@ -35,7 +35,7 @@ class TestServer {
         this.emsApp.use(cors({
             origin: (origin, callback) => {
                 console.log(origin)
-                if (Constants.ALLOWED_REQUEST_ORIGINS.indexOf(origin) !== -1) {
+                if (config.get("ALLOWED_REQUEST_ORIGINS").indexOf(origin) !== -1) {
                     callback(null, true);
                 } else {
                     callback(new Error('Accessing this resource is not allowed due to CORS!!'));
@@ -66,7 +66,7 @@ class TestServer {
     async connectToDB() {
         //database connection
         try {
-            let result = await mongoose.connect(Constants.DB_CONFIG, { useNewUrlParser: true });
+            let result = await mongoose.connect(config.get("DB_CONFIG"), { useNewUrlParser: true });
             result.connection.on('connected', () => {
                 this.logger.info("Database connection established..");
             })
@@ -84,6 +84,6 @@ class TestServer {
 
 let server = new TestServer();
 server.start();
-server.emsApp.listen(Constants.PORT_NUMBER, () => {
-    server.logger.info(`Server is listing on port ${Constants.PORT_NUMBER}`);
+server.emsApp.listen(config.get("PORT_NUMBER"), () => {
+    server.logger.info(`Server is listing on port ${config.get("PORT_NUMBER")}`);
 })
