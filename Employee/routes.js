@@ -6,7 +6,7 @@ router.route('/')
     .post(empController.addEmployee)
     .delete(empController.deleteAllEmployees)
     
-router.route('/:_id')
+router.route('/:empId')
     .get(empController.getEmployeeById)
     .put(empController.updateEmployeeById)
     .delete(empController.deleteEmployeeById)
