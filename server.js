@@ -7,9 +7,9 @@ const Constants = require('./constants');
 const LoggerHelper = require('./logger-helper');
 
 //routes
-const empPluginRoutes = require('./EmployeePlugin/routes');
-const orgPluginRoutes = require('./OrganisationPlugin/routes');
-const usersPluginRoutes = require('./UserPlugin/routes');
+const empPluginRoutes = require('./Employee/routes');
+const orgPluginRoutes = require('./Organisation/routes');
+const usersPluginRoutes = require('./User/routes');
 
 
 class TestServer {
