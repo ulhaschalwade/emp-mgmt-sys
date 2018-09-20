@@ -14,7 +14,7 @@ class orgController {
 
     async getOrganisationById(req, res) {
         try {
-            let organisation = await orgService.getOrganisationById(req.params._id);
+            let organisation = await orgService.getOrganisationById(req.params.orgId);
             res.json(organisation);
         }
         catch (error) {
@@ -31,7 +31,7 @@ class orgController {
                     updatedObj[key] = req.body[key];
                 }
             }
-            let updatedOrganisation = await orgService.updateOrganisationById(req.params._id, updatedObj);
+            let updatedOrganisation = await orgService.updateOrganisationById(req.params.orgId, updatedObj);
             res.json(updatedOrganisation);
         }
         catch (error) {
@@ -41,7 +41,7 @@ class orgController {
 
     async deleteOrganisationById(req, res) {
         try {
-            let deletedOrganisation = await orgService.deleteOrganisationById(req.params._id);
+            let deletedOrganisation = await orgService.deleteOrganisationById(req.params.orgId);
             res.json(deletedOrganisation);
         }
         catch (error) {
@@ -65,7 +65,7 @@ class orgController {
 
     async getAllEmployeesFromOrganisation(req, res) {
         try {
-            let employees = await orgService.getAllEmployeesFromOrganisation(req.params._id);
+            let employees = await orgService.getAllEmployeesFromOrganisation(req.params.orgId);
             res.json(employees);
         }
         catch (error) {
@@ -75,7 +75,7 @@ class orgController {
 
     async deleteAllEmployeesFromOrganisation(req, res) {
         try {
-            let employees = await orgService.deleteAllEmployeesFromOrganisation(req.params._id);
+            let employees = await orgService.deleteAllEmployeesFromOrganisation(req.params.orgId);
             res.json(employees);
         }
         catch (error) {
@@ -85,7 +85,7 @@ class orgController {
 
     async getEmployeeFromOrganisation(req, res) {
         try {
-            let employees = await orgService.getEmployeeFromOrganisation(req.params._id, req.params.empId);
+            let employees = await orgService.getEmployeeFromOrganisation(req.params.orgId, req.params.empId);
             res.json(employees);
         }
         catch (error) {
@@ -95,7 +95,7 @@ class orgController {
 
     async removeEmployeeFromOrganisation(req, res) {
         try {
-            let employees = await orgService.getAllEmployeesFromOrganisation(req.params._id, req.params.empId);
+            let employees = await orgService.getAllEmployeesFromOrganisation(req.params.orgId, req.params.empId);
             res.json(employees);
         }
         catch (error) {
@@ -105,7 +105,7 @@ class orgController {
 
     async addEmployeeInOrganisation(req, res) {
         try {
-            let employees = await orgService.getAllEmployeesFromOrganisation(req.params._id, req.params.empId);
+            let employees = await orgService.getAllEmployeesFromOrganisation(req.params.orgId, req.params.empId);
             res.json(employees);
         }
         catch (error) {
