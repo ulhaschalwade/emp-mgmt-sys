@@ -2,7 +2,6 @@ const assert = require('chai').assert;
 const expect = require('chai').expect;
 const baseUri = "http://localhost:3000";
 const request = require('request');
-const should = require('should');
 
 describe('User', () => {
     describe('Get External Users', () => {

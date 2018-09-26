@@ -10,6 +10,7 @@ const LoggerHelper = require('./logger-helper');
 const empPluginRoutes = require('./Employee/routes');
 const orgPluginRoutes = require('./Organisation/routes');
 const usersPluginRoutes = require('./User/routes');
+const authenticationPluginRoutes = require('./Authentication/routes');
 
 
 class TestServer {
@@ -17,11 +18,13 @@ class TestServer {
         this.emsApp = express();
     }
 
-    start() {
-        this.init();
+    async start() {
+        await this.init();
+        this.emsApp.emit('expressServerStarted', "Express server started..");
+        console.log(`Server started..`)
     }
 
-    init() {
+    async init() {
         this.setupMiddlewares();
         this.setupRoutes();
         this.initializeLogger();
@@ -34,8 +37,7 @@ class TestServer {
         this.emsApp.use(bodyParser.json());
         this.emsApp.use(cors({
             origin: (origin, callback) => {
-                console.log(origin)
-                if (config.get("ALLOWED_REQUEST_ORIGINS").indexOf(origin) !== -1) {
+                if (!origin || config.get("ALLOWED_REQUEST_ORIGINS").indexOf(origin) !== -1) {
                     callback(null, true);
                 } else {
                     callback(new Error('Accessing this resource is not allowed due to CORS!!'));
@@ -80,6 +82,17 @@ class TestServer {
         }
     }
 
+    async shutdownServer() {
+        try {
+            await mongoose.connection.dropDatabase();
+            process.exit();
+        }
+        catch (error) {
+            this.logger.error(`Error occured while shuting down the server.\n Error details ${error}`);
+            throw error;
+        }
+    }
+
 }
 
 let server = new TestServer();
@@ -87,3 +100,5 @@ server.start();
 server.emsApp.listen(config.get("PORT_NUMBER"), () => {
     server.logger.info(`Server is listing on port ${config.get("PORT_NUMBER")}`);
 })
+
+module.exports = server;

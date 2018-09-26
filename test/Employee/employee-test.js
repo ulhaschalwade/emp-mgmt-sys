@@ -2,8 +2,6 @@ const assert = require('chai').assert;
 const expect = require('chai').expect;
 const baseUri = "http://localhost:3000";
 const request = require('request');
-const should = require('should');
-
 describe('Employee', () => {
     let firstEmployeeId = null;
     describe('Cleanup Employee DB', () => {

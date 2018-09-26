@@ -10,7 +10,7 @@ class LoggerHelper {
         this.setupWinstonBasics();
         this.ensureDirectory();
         let logger = this.setupWinstonTransports();
-        logger.info("Winstom logger initialised..");
+        logger.info(`Winstom logger initialised with log level for console : '${config.get("CONSOLE_LOG_LEVEL")}' and logfile level : '${config.get("LOG_LEVEL")}'`);
         this.setupGlobalLogger(logger);
     }
 
