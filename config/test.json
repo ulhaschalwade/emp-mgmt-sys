@@ -6,6 +6,7 @@
     "LOG_FILENAME": "emp-mgmt-sys.%DATE%.log",
     "ALLOWED_REQUEST_ORIGINS": [
         "http://localhost:3000",
-        "http://www.example.com"
-    ]
+        "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop"
+    ],
+    "SECRET": "test_ADfgSGjFGHJSSygcfgutgA"
 }

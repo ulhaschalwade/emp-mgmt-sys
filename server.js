@@ -6,6 +6,7 @@ const cors = require('cors');
 const config = require('config');
 const LoggerHelper = require('./logger-helper');
 
+const jsonWebToken = require('jsonwebtoken');
 //routes
 const empPluginRoutes = require('./Employee/routes');
 const orgPluginRoutes = require('./Organisation/routes');
@@ -37,6 +38,7 @@ class TestServer {
         this.emsApp.use(bodyParser.json());
         this.emsApp.use(cors({
             origin: (origin, callback) => {
+                global['logger'].debug(`Request origin: ${origin}`);
                 if (!origin || config.get("ALLOWED_REQUEST_ORIGINS").indexOf(origin) !== -1) {
                     callback(null, true);
                 } else {
