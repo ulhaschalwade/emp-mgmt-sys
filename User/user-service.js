@@ -51,7 +51,7 @@ class userService {
             }
             users = await userModel.create(adminUser);
         }
-        const [result,...rest] = users;
+        const [result, ...rest] = users;
         const { password, ...usersWithoutPassword } = result;
         return usersWithoutPassword;
     }
@@ -73,18 +73,21 @@ class userService {
                 // create a token with only our given payload
                 // we don't want to pass in the entire user since that has the password
                 const payload = {
-                    admin: user.admin
+                    isAdmin: user.isAdmin
                 };
-                var token = jwt.sign(payload, config.get('SECRET'), {
-                    expiresInMinutes: 1440 // expires in 24 hours
+                jwt.sign(payload, config.get('SECRET'), {
+                    expiresIn1: 60 * 60 * 24 // expires in 24 hours
+                }, (error, accesstoken) => {
+                    if (error)
+                        throw error;
+                    // return the information including token as JSON
+                    return {
+                        success: true,
+                        message: 'Enjoy your token!',
+                        token: token
+                    };
                 });
 
-                // return the information including token as JSON
-                return {
-                    success: true,
-                    message: 'Enjoy your token!',
-                    token: token
-                };
             }
         }
     }
