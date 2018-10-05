@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('./user-controller');
+const verifyToken = require('.././Authentication/authenticationMiddleware')
 router.route('/external')
-    .get(userController.getAllExternalUsers)
+    .get(verifyToken, userController.getAllExternalUsers)
 router.route('/external/:username')
-    .get(userController.getUserByUsername)
-router.post('/addUser',userController.addUser);
-router.post('/authenticate',userController.authenticateUser);    
+    .get(verifyToken, userController.getUserByUsername)
+router.post('/addUser', userController.addUser);
+router.post('/authenticate', userController.authenticateUser);
 module.exports = router;

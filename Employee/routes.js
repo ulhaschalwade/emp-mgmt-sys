@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const empController = require('./employee-controller');
+const verifyToken = require('.././Authentication/authenticationMiddleware')
 router.route('/')
-    .get(empController.getEmployees)
-    .post(empController.addEmployee)
-    .delete(empController.deleteAllEmployees)
-    
+    .get(verifyToken, empController.getEmployees)
+    .post(verifyToken, empController.addEmployee)
+    .delete(verifyToken, empController.deleteAllEmployees)
+
 router.route('/:empId')
-    .get(empController.getEmployeeById)
-    .put(empController.updateEmployeeById)
-    .delete(empController.deleteEmployeeById)
+    .get(verifyToken, empController.getEmployeeById)
+    .put(verifyToken, empController.updateEmployeeById)
+    .delete(verifyToken, empController.deleteEmployeeById)
 module.exports = router;

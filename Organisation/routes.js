@@ -1,23 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const orgController = require('./org-controller')
+const verifyToken = require('.././Authentication/authenticationMiddleware')
 router.route('/')
-    .get(orgController.getAllOrganisations)
-    .post(orgController.addNewOrganisation)
+    .get(verifyToken, orgController.getAllOrganisations)
+    .post(verifyToken, orgController.addNewOrganisation)
 
 router.route('/:orgId')
-    .get(orgController.getOrganisationById)
-    .delete(orgController.deleteOrganisationById)
-    .put(orgController.updateOrganisationById)
+    .get(verifyToken, orgController.getOrganisationById)
+    .delete(verifyToken, orgController.deleteOrganisationById)
+    .put(verifyToken, orgController.updateOrganisationById)
 
 router.route('/:orgId/employee')
-    .get(orgController.getAllEmployeesFromOrganisation)
-    .delete(orgController.deleteAllEmployeesFromOrganisation)
+    .get(verifyToken, orgController.getAllEmployeesFromOrganisation)
+    .delete(verifyToken, orgController.deleteAllEmployeesFromOrganisation)
 
 router.route('/:orgId/employee/:empId')
-    .get(orgController.getEmployeeFromOrganisation)
-    .delete(orgController.removeEmployeeFromOrganisation)
-    .put(orgController.addEmployeeInOrganisation)
+    .get(verifyToken, orgController.getEmployeeFromOrganisation)
+    .delete(verifyToken, orgController.removeEmployeeFromOrganisation)
+    .put(verifyToken, orgController.addEmployeeInOrganisation)
 
 
 module.exports = router;
