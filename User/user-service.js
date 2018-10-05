@@ -76,19 +76,15 @@ class userService {
                 const payload = {
                     username: user.username,
                 };
-                jwt.sign(payload, config.get('SECRET'), {
+                const token = await jwt.sign(payload, config.get('SECRET'), {
                     expiresIn: 60 * 60 * 24
-                }, (error, accesstoken) => {
-                    console.log(accesstoken)
-                    if (error)
-                        throw error;
-                    // return the information including token as JSON
-                    return {
-                        success: true,
-                        message: 'Enjoy your token!',
-                        token: accesstoken
-                    };
                 });
+                return {
+                    success: true,
+                    message: 'Enjoy your token!',
+                    token: token
+                }
+
 
             }
         }

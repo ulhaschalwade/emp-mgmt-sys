@@ -1,16 +1,32 @@
-const authentication = require('./auth');
+const config = require('config');
 
-verifyJWT_MW: (req, res, next) => {
-    let token = (req.method === 'POST') ? req.body.token : req.query.token
-    authentication.verifyToken(token)
-        .then((decodedToken) => {
-            req.user = decodedToken.data
-            next()
-        })
-        .catch((err) => {
-            res.status(400)
-                .json({ message: "Invalid auth token provided." })
-        })
-}
+verifyToken: (req, res, next) => {
 
+    // check header or url parameters or post parameters for token
+    let token = req.body.token || req.query.token || req.headers['x-access-token'];
+    // decode token
+    if (token) {
+
+        // verifies secret and checks exp
+        jwt.verify(token, config.get('SECRET'), function (err, decoded) {
+            if (err) {
+                return res.json({ success: false, message: 'Failed to authenticate token.' });
+            } else {
+                // if everything is good, save to request for use in other routes
+                req.decoded = decoded;
+                next();
+            }
+        });
+
+    } else {
+
+        // if there is no token
+        // return an error
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.'
+        });
+
+    }
+});
 module.exports = verifyTokenMiddleware;
