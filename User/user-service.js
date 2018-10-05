@@ -47,10 +47,14 @@ class userService {
         let users = await userModel.find({ username: user.username });
         if (!users || users.length == 0) {
             users = await userModel.create(user);
+            const [result, ...rest] = users;
+            const { password, ...usersWithoutPassword } = result;
+            return usersWithoutPassword;
         }
-        const [result, ...rest] = users;
-        const { password, ...usersWithoutPassword } = result;
-        return usersWithoutPassword;
+        else {
+            throw Error(`User with the given username already exists...`);
+        }
+
     }
 
     async authenticateUser(username, password) {
@@ -82,7 +86,7 @@ class userService {
                     return {
                         success: true,
                         message: 'Enjoy your token!',
-                        token: token
+                        token: accesstoken
                     };
                 });
 

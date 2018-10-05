@@ -27,16 +27,17 @@ class userController {
             global['logger'].debug('Request for adding admin account received');
             let user = {
                 firstname: req.body.firstname,
-                lastname: req.body.firstname,
-                email: req.body.firstname,
-                username: req.body.firstname,
-                password: req.body.firstname,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                username: req.body.username,
+                password: req.body.password,
             }
             let result = await userService.addUser(user);
             res.json({ success: true });
         }
         catch (error) {
-            res.json(error);
+            console.log(error.message)
+            res.status(400).send(error);
         }
     }
 
@@ -47,6 +48,7 @@ class userController {
             res.json(result);
         }
         catch (error) {
+            console.log(error)
             res.send(error);
         }
     }
