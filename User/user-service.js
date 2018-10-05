@@ -2,6 +2,7 @@ const request = require('request')
 const userModel = require('./schema')
 const config = require('config');
 const jwt = require('jsonwebtoken');
+const uuid = require('uuidv4');
 class userService {
     async getAllExternalUsers() {
         request.get({
@@ -41,15 +42,11 @@ class userService {
 
     }
 
-    async createAdminUser() {
-        let users = await userModel.find({ username: 'System', isAdmin: true });
+    async addUser(user) {
+        console.log('req received')
+        let users = await userModel.find({ username: user.username });
         if (!users || users.length == 0) {
-            let adminUser = {
-                username: "System",
-                password: "System",
-                isAdmin: true
-            }
-            users = await userModel.create(adminUser);
+            users = await userModel.create(user);
         }
         const [result, ...rest] = users;
         const { password, ...usersWithoutPassword } = result;
@@ -73,11 +70,12 @@ class userService {
                 // create a token with only our given payload
                 // we don't want to pass in the entire user since that has the password
                 const payload = {
-                    isAdmin: user.isAdmin
+                    username: user.username,
                 };
                 jwt.sign(payload, config.get('SECRET'), {
-                    expiresIn1: 60 * 60 * 24 // expires in 24 hours
+                    expiresIn: 60 * 60 * 24
                 }, (error, accesstoken) => {
+                    console.log(accesstoken)
                     if (error)
                         throw error;
                     // return the information including token as JSON

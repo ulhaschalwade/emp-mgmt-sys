@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const Path = require('path');
 const cors = require('cors');
 const config = require('config');
 const LoggerHelper = require('./logger-helper');
@@ -53,6 +54,7 @@ class TestServer {
         this.emsApp.use('/api/employee', empPluginRoutes);
         this.emsApp.use('/api/organisation', orgPluginRoutes);
         this.emsApp.use('/api/user', usersPluginRoutes);
+        this.emsApp.use(express.static('static'));
     }
 
     async initializeLogger() {
@@ -102,5 +104,4 @@ server.start();
 server.emsApp.listen(config.get("PORT_NUMBER"), () => {
     server.logger.info(`Server is listing on port ${config.get("PORT_NUMBER")}`);
 })
-
 module.exports = server;

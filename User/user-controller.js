@@ -22,11 +22,18 @@ class userController {
         }
     }
 
-    async createAdminUser(req, res) {
+    async addUser(req, res) {
         try {
             global['logger'].debug('Request for adding admin account received');
-            let user = await userService.createAdminUser();
-            res.json({success: true});
+            let user = {
+                firstname: req.body.firstname,
+                lastname: req.body.firstname,
+                email: req.body.firstname,
+                username: req.body.firstname,
+                password: req.body.firstname,
+            }
+            let result = await userService.addUser(user);
+            res.json({ success: true });
         }
         catch (error) {
             res.json(error);

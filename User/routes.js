@@ -5,6 +5,6 @@ router.route('/external')
     .get(userController.getAllExternalUsers)
 router.route('/external/:username')
     .get(userController.getUserByUsername)
-router.post('/setup',userController.createAdminUser);
+router.post('/addUser',userController.addUser);
 router.post('/authenticate',userController.authenticateUser);    
 module.exports = router;
