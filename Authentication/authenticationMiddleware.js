@@ -28,5 +28,5 @@ verifyToken: (req, res, next) => {
         });
 
     }
-});
-module.exports = verifyTokenMiddleware;
+}
+module.exports = verifyToken;
