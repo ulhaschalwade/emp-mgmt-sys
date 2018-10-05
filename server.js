@@ -12,7 +12,6 @@ const jsonWebToken = require('jsonwebtoken');
 const empPluginRoutes = require('./Employee/routes');
 const orgPluginRoutes = require('./Organisation/routes');
 const usersPluginRoutes = require('./User/routes');
-const authenticationPluginRoutes = require('./Authentication/routes');
 
 
 class TestServer {
