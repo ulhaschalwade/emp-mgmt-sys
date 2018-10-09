@@ -5,14 +5,16 @@ const jwt = require('jsonwebtoken');
 const uuid = require('uuidv4');
 class userService {
     async getAllExternalUsers() {
-        request.get({
-            uri: "https://api.github.com/users",
-            headers: { 'user-agent': 'node.js' }
-        }, (error, response, body) => {
-            if (error)
-                throw error;
-            return body;
-        });
+        return new Promise((resolve, reject) => {
+            request.get({
+                uri: "https://api.github.com/users",
+                headers: { 'user-agent': 'node.js' }
+            }, (error, response, body) => {
+                if (error)
+                    throw error;
+                resolve(body);
+            });
+        })
     }
 
     async getUserByUsername(username) {
