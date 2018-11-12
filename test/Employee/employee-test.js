@@ -2,8 +2,6 @@ const assert = require('chai').assert;
 const expect = require('chai').expect;
 const baseUri = "http://localhost:3000";
 const request = require('request');
-const should = require('should');
-
 describe('Employee', () => {
     let firstEmployeeId = null;
     describe('Cleanup Employee DB', () => {
@@ -13,10 +11,13 @@ describe('Employee', () => {
                 done();
             })
         })
-        it("returns all employees should return zero employees", (done) => {
+
+        it("get all employees should return 0 employees", (done) => {
             request.get({ uri: baseUri + '/api/employee/' }, (error, response, body) => {
                 expect(response.statusCode).to.equal(200);
-                expect(body).to.deep.equal('[]')
+                let result = JSON.parse(body);
+                expect(result).to.be.an('array')
+                expect(result).to.be.lengthOf(0)
                 done();
             })
         })
@@ -31,6 +32,7 @@ describe('Employee', () => {
             designation: 'NA',
             department: "NA"
         }
+
         let secondEmployee = {
             firstName: 'Ulhas1',
             lastName: 'Chalawade1',
@@ -39,6 +41,7 @@ describe('Employee', () => {
             designation: 'NA',
             department: "NA"
         }
+
         it('add new employee', (done) => {
             request.post({ uri: baseUri + '/api/employee', json: firstEmployee }, (error, response, body) => {
                 expect(response.statusCode).to.equal(200);
@@ -70,9 +73,10 @@ describe('Employee', () => {
         let getAllEmployeeResult = [];
         it("returns all employees", (done) => {
             request.get({ uri: baseUri + '/api/employee/' }, (error, response, body) => {
-                getAllEmployeeResult = body;
                 expect(response.statusCode).to.equal(200);
-                firstEmployeeId = body[0]['_id'];
+                getAllEmployeeResult = JSON.parse(body);
+                expect(getAllEmployeeResult).to.be.length.gte(1);
+                firstEmployeeId = getAllEmployeeResult[0]['_id'];
                 console.log(body);
                 console.log(firstEmployeeId)
                 done();
@@ -84,8 +88,9 @@ describe('Employee', () => {
         let firstEmployee = [];
         it("returns employee by given id", (done) => {
             request.get({ uri: baseUri + '/api/employee/' + firstEmployeeId }, (error, response, body) => {
-                getAllEmployeeResult = body;
                 expect(response.statusCode).to.equal(200);
+                firstEmployee = JSON.parse(body);
+                expect(firstEmployee).to.be.an('object')
                 console.log(body);
                 done();
             })

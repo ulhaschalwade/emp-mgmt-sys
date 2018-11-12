@@ -1,0 +1,7 @@
+{
+    "SECRET": "development_saefdsAdghjkAGFRFGAHGFghgfg",
+    "ALLOWED_REQUEST_ORIGINS": [
+        "http://localhost:3000",
+        "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop"
+    ]
+}

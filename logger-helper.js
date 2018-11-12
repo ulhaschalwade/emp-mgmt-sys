@@ -1,6 +1,6 @@
 const winston = require('winston');
 const rotateFile = require('winston-daily-rotate-file');
-const Constants = require('./constants')
+const config = require('config')
 const path = require('path');
 const mkdirp = require('mkdirp');
 const moment = require('moment');
@@ -10,7 +10,7 @@ class LoggerHelper {
         this.setupWinstonBasics();
         this.ensureDirectory();
         let logger = this.setupWinstonTransports();
-        logger.info("Winstom logger initialised..");
+        logger.info(`Winstom logger initialised with log level for console : '${config.get("CONSOLE_LOG_LEVEL")}' and logfile level : '${config.get("LOG_LEVEL")}'`);
         this.setupGlobalLogger(logger);
     }
 
@@ -27,7 +27,7 @@ class LoggerHelper {
         return winston.createLogger({
             transports: [
                 new winston.transports.Console({
-                    level: Constants.CONSOLE_LOG_LEVEL,
+                    level: config.get("CONSOLE_LOG_LEVEL"),
                     prettyPrint: true,
                     colorise: true,
                     silent: false,
@@ -35,11 +35,11 @@ class LoggerHelper {
                     json: false
                 }),
                 new rotateFile({
-                    level: Constants.LOG_LEVEL,
+                    level: config.get("LOG_LEVEL"),
                     prettyPrint: true,
                     silent: false,
                     colorize: true,
-                    filename: path.join(__dirname, "./logs", Constants.LOG_FILENAME),
+                    filename: path.join(__dirname, "./logs", config.get("LOG_FILENAME")),
                     timestamp: () => moment(new Date()).format('YYYY-MM-DD hh:mm:ss'),
                     json: false,
                     maxFiles: 10,

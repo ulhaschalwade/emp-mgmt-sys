@@ -35,7 +35,7 @@ class empController {
 
     async getEmployeeById(req, res) {
         try {
-            let employeeRecord = await empService.getEmployeeById(req.params._id);
+            let employeeRecord = await empService.getEmployeeById(req.params.empId);
             res.json(employeeRecord);
         }
         catch (error) {
@@ -52,7 +52,7 @@ class empController {
                     employeeObj[key] = req.body[key];
                 }
             }
-            let employeeRecord = await empService.updateEmployeeById(req.params._id, employeeObj)
+            let employeeRecord = await empService.updateEmployeeById(req.params.empId, employeeObj)
             res.json(employeeRecord);
         }
         catch (error) {
@@ -62,7 +62,7 @@ class empController {
 
     async deleteEmployeeById(req, res) {
         try {
-            let employeeRecord = await empService.deleteEmployeeById(req.params._id);
+            let employeeRecord = await empService.deleteEmployeeById(req.params.empId);
             res.json(employeeRecord);
         }
         catch (error) {

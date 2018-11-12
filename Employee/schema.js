@@ -7,11 +7,6 @@ const empSchema = new mongoose.Schema({
     designation: String,
     department: String,
     salary: Number,
-    organisation: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Organisation'
-    }
-
 })
 
 module.exports = mongoose.model('Employee', empSchema);
