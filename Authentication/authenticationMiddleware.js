@@ -2,12 +2,10 @@ const config = require('config');
 const jwt= require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
-
     // check header or url parameters or post parameters for token
     let token = req.body.token || req.query.token || req.headers['x-access-token'];
     // decode token
     if (token) {
-
         // verifies secret and checks exp
         jwt.verify(token, config.get('SECRET'), function (err, decoded) {
             if (err) {
@@ -18,16 +16,14 @@ function verifyToken(req, res, next) {
                 next();
             }
         });
-
     } else {
-
         // if there is no token
         // return an error
         return res.status(403).send({
             success: false,
             message: 'No token provided.'
         });
-
     }
 }
+
 module.exports = verifyToken;
