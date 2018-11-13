@@ -33,85 +33,60 @@ class OrganisationService {
     }
 
     async getAllEmployeesFromOrganisation(orgId) {
-        try {
-            logger.debug('Request for get all employees of organisation received..');
-            let employees = await orgModel.findById(orgId)
-                .populate('Employee', ['firstName', 'lastName'])
-                .exec()
-            return employees;
-        }
-        catch (error) {
-            res.send(error);
-        }
+        logger.debug('Request for get all employees of organisation received..');
+        let employees = await orgModel.findById(orgId)
+            .populate('Employee', ['firstName', 'lastName'])
+            .exec()
+        return employees;
     }
 
     async deleteAllEmployeesFromOrganisation(orgId) {
-        try {
-            logger.debug('Request for delete all employees of organisation received..');
-            let result = orgModel.findById(orgId)
-                .populate('Employee')
-                .exec((error, employees) => {
-                    if (error)
-                        throw error;
-                    employees = [];
-                    employees.save();
-                })
-            return result;
-        }
-        catch (error) {
-            res.send(error);
-        }
+        logger.debug('Request for delete all employees of organisation received..');
+        let result = orgModel.findById(orgId)
+            .populate('Employee')
+            .exec((error, employees) => {
+                if (error)
+                    throw error;
+                employees = [];
+                employees.save();
+            })
+        return result;
     }
 
     async getEmployeeFromOrganisation(orgId, empId) {
-        try {
-            logger.debug('Request for get employee by id of an organisation received..');
-            let employee = await orgModel.findById(orgId)
-                .populate('Employee', ['firstName', 'lastName'], null, { _id: empId })
-                .exec()
-            return employee;
-        }
-        catch (error) {
-            res.send(error);
-        }
+        logger.debug('Request for get employee by id of an organisation received..');
+        let employee = await orgModel.findById(orgId)
+            .populate('Employee', ['firstName', 'lastName'], null, { _id: empId })
+            .exec()
+        return employee;
     }
 
     async removeEmployeeFromOrganisation(orgId, empId) {
-        try {
-            logger.debug('Request for remove employee by id of an organisation received..');
-            let result = orgModel.findById(orgId)
-                .populate('Employee')
-                .exec((error, employees) => {
-                    if (error)
-                        throw error;
-                    if (employees.indexOf(empId) !== -1) {
-                        employees.splice(employees.indexOf(empId), 1);
-                        employees.save();
-                    }
-                })
-            return result;
-        }
-        catch (error) {
-            res.send(error);
-        }
+        logger.debug('Request for remove employee by id of an organisation received..');
+        let result = orgModel.findById(orgId)
+            .populate('Employee')
+            .exec((error, employees) => {
+                if (error)
+                    throw error;
+                if (employees.indexOf(empId) !== -1) {
+                    employees.splice(employees.indexOf(empId), 1);
+                    employees.save();
+                }
+            })
+        return result;
     }
 
     async addEmployeeInOrganisation(orgId, empId) {
-        try {
-            logger.debug('Request for add new employee in organisation received..');
-            let result = orgModel.findById(orgId)
-                .populate('Employee')
-                .exec((error, employees) => {
-                    if (error)
-                        throw error;
-                    employees.push(empId);
-                    employees.save();
-                })
-            return result;
-        }
-        catch (error) {
-            res.send(error);
-        }
+        logger.debug('Request for add new employee in organisation received..');
+        let result = orgModel.findById(orgId)
+            .populate('Employee')
+            .exec((error, employees) => {
+                if (error)
+                    throw error;
+                employees.push(empId);
+                employees.save();
+            })
+        return result;
     }
 }
 module.exports = new OrganisationService();

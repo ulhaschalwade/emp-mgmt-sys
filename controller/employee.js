@@ -52,14 +52,7 @@ class EmployeeController {
     async updateEmployeeById(req, res) {
         try {
             logger.info('Request for update employee received..');
-            let employeeObj = {
-            }
-            for (let key in req.body) {
-                if (req.body.hasOwnProperty(key)) {
-                    employeeObj[key] = req.body[key];
-                }
-            }
-            let employeeRecord = await empService.updateEmployeeById(req.params.empId, employeeObj);
+            let employeeRecord = await empService.updateEmployeeById(req.params.empId, req.body);
             res.json(employeeRecord);
         }
         catch (error) {
