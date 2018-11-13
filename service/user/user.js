@@ -4,7 +4,8 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuidv4');
 class UserService {
-    async getAllExternalUsers() {
+    async getAllUsers() {
+        global['logger'].debug("Request for get all git users received");
         return new Promise((resolve, reject) => {
             request.get({
                 uri: "https://api.github.com/users",
@@ -18,6 +19,7 @@ class UserService {
     }
 
     async getUserByUsername(username) {
+        global['logger'].debug("Request for get git user by username received");
         return new Promise((resolve, reject) => {
             return request.get({
                 uri: `https://api.github.com/users/${username}`,
@@ -28,11 +30,10 @@ class UserService {
                 resolve(body);
             })
         })
-
     }
 
     async addUser(user) {
-        console.log('req received')
+        global['logger'].debug("Request for add user received");
         let users = await userModel.find({ username: user.username });
         if (!users || users.length == 0) {
             users = await userModel.create(user);
@@ -47,6 +48,7 @@ class UserService {
     }
 
     async authenticateUser(username, password) {
+        global['logger'].debug("Request for authenticate user received");
         // find the user
         let user = await userModel.findOne({
             username: username
@@ -73,8 +75,6 @@ class UserService {
                     message: 'Enjoy your token!',
                     token: token
                 }
-
-
             }
         }
     }
