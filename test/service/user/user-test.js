@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 const expect = require('chai').expect;
-const baseUri = "http://localhost:3000";
+const baseUri = 'http://localhost:3000';
 const request = require('request');
 
 describe('User', () => {

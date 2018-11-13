@@ -13,7 +13,7 @@ class empServices {
     }
 
     async addEmployee(employeeDetails) {
-        global['logger'].debug("Request for add employee received..");
+        global['logger'].debug('Request for add employee received..');
         let employeeObj = {
             firstName: employeeDetails.firstName,
             lastName: employeeDetails.lastName,
@@ -27,19 +27,19 @@ class empServices {
     }
 
     async getEmployeeById(empId) {
-        global['logger'].debug("Request for get employee received..");
+        global['logger'].debug('Request for get employee received..');
         let employeeRecord = await EmployeeModel.findById(empId);
         return employeeRecord;
     }
 
     async updateEmployeeById(empId, employeeObj) {
-        global['logger'].debug("Request for update employee received..");
+        global['logger'].debug('Request for update employee received..');
         let employeeRecord = await EmployeeModel.findOneAndUpdate(empId,employeeObj);
         return employeeRecord;
     }
 
     async deleteEmployeeById(empId) {
-        global['logger'].debug("Request for delete employee received..");
+        global['logger'].debug('Request for delete employee received..');
         let employeeRecord = await EmployeeModel.findByIdAndRemove(empId);
         return employeeRecord;
     }

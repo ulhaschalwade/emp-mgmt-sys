@@ -11,7 +11,7 @@ class LoggerHelper {
         this.setupWinstonBasics();
         this.ensureDirectory();
         let logger = this.setupWinstonTransports();
-        logger.info(`Winstom logger initialised with log level for console : '${config.get("CONSOLE_LOG_LEVEL")}' and logfile level : '${config.get("LOG_LEVEL")}'`);
+        logger.info(`Winstom logger initialised with log level for console : '${config.get('CONSOLE_LOG_LEVEL')}' and logfile level : '${config.get('LOG_LEVEL')}'`);
         this.setupGlobalLogger(logger);
     }
 
@@ -30,7 +30,7 @@ class LoggerHelper {
         return winston.createLogger({
             transports: [
                 new winston.transports.Console({
-                    level: config.get("CONSOLE_LOG_LEVEL"),
+                    level: config.get('CONSOLE_LOG_LEVEL'),
                     prettyPrint: true,
                     colorise: true,
                     silent: false,
@@ -38,11 +38,11 @@ class LoggerHelper {
                     json: false
                 }),
                 new rotateFile({
-                    level: config.get("LOG_LEVEL"),
+                    level: config.get('LOG_LEVEL'),
                     prettyPrint: true,
                     silent: false,
                     colorize: true,
-                    filename: Path.join(__dirname, "./logs", config.get("LOG_FILENAME")),
+                    filename: Path.join(__dirname, './logs', config.get('LOG_FILENAME')),
                     timestamp: () => moment(new Date()).format('YYYY-MM-DD hh:mm:ss'),
                     json: false,
                     maxFiles: 10,
@@ -61,7 +61,7 @@ class LoggerHelper {
     // Make logger instance available at global['logger']
     setupGlobalLogger(logger) {
         global['logger'] = logger;
-        global['logger'].info("Logger is available at global['logger']");
+        global['logger'].info(`Logger is available at global['logger']`);
     }
 
 }
