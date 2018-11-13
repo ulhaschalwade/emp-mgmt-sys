@@ -1,5 +1,5 @@
-const userService = require('./user-service')
-class userController {
+const userService = require('../../service/user/user');
+class UserController {
     async getAllExternalUsers(req, res) {
         try {
             global['logger'].debug('Request for get all external users received');
@@ -53,4 +53,4 @@ class userController {
         }
     }
 }
-module.exports = new userController();
+module.exports = new UserController();

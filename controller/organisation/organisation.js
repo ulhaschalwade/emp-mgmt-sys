@@ -1,6 +1,6 @@
-const orgService = require('./org-service')
+const orgService = require('../../service/organisation/organisation');
 
-class orgController {
+class OrganisationController {
 
     async getAllOrganisations(req, res) {
         try {
@@ -113,4 +113,4 @@ class orgController {
         }
     }
 }
-module.exports = new orgController();
+module.exports = new OrganisationController();

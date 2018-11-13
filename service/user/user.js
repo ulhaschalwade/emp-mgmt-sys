@@ -1,9 +1,9 @@
-const request = require('request')
-const userModel = require('./schema')
+const request = require('request');
+const userModel = require('../../schema/user/user');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuidv4');
-class userService {
+class UserService {
     async getAllExternalUsers() {
         return new Promise((resolve, reject) => {
             request.get({
@@ -79,4 +79,4 @@ class userService {
         }
     }
 }
-module.exports = new userService();
+module.exports = new UserService();

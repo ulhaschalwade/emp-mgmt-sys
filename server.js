@@ -2,16 +2,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Path = require('path');
 const cors = require('cors');
 const config = require('config');
-const LoggerHelper = require('./logger-helper');
+const loggerHelper = require('./logger-helper');
 
 const jsonWebToken = require('jsonwebtoken');
+
 //routes
-const empPluginRoutes = require('./Employee/routes');
-const orgPluginRoutes = require('./Organisation/routes');
-const usersPluginRoutes = require('./User/routes');
+const empPluginRoutes = require('./routes/employee/employee.js');
+const orgPluginRoutes = require('./routes/organisation/organisation.js');
+const usersPluginRoutes = require('./routes/user/user.js');
 
 
 class TestServer {
@@ -46,7 +46,6 @@ class TestServer {
                 }
             }
         }))
-        
 
     }
 
@@ -60,8 +59,8 @@ class TestServer {
 
     async initializeLogger() {
         try {
-            let loggerHelper = new LoggerHelper();
-            loggerHelper.init();
+            let loggerHelperInstance = new loggerHelper();
+            loggerHelperInstance.init();
             this.logger = global['logger'];
         }
         catch (error) {
