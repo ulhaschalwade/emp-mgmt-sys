@@ -101,4 +101,5 @@ server.start();
 server.emsApp.listen(config.get('PORT_NUMBER'), () => {
     server.logger.info(`Server is listing on port ${config.get('PORT_NUMBER')}`);
 })
+
 module.exports = server;

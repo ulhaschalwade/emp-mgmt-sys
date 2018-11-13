@@ -4,8 +4,6 @@ const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middlerware/authentication');
 
-
-
 async function getEmployees(req, res) {
     try {
         logger.info('Request for get all employees received');
@@ -88,4 +86,5 @@ router.route('/:empId')
     .get(verifyToken, getEmployeeById)
     .put(verifyToken, updateEmployeeById)
     .delete(verifyToken, deleteEmployeeById)
+    
 module.exports = router;

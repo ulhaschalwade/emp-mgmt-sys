@@ -4,6 +4,7 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuidv4');
 const logger = global['logger'];
+
 class UserService {
     async getAllUsers() {
         logger.debug('Request for get all git users received');
@@ -80,4 +81,5 @@ class UserService {
         }
     }
 }
+
 module.exports = new UserService();

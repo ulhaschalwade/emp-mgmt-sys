@@ -145,5 +145,6 @@ router.route('/:orgId/employee')
 router.route('/:orgId/employee/:empId')
     .get(verifyToken, getEmployeeFromOrganisation)
     .delete(verifyToken, removeEmployeeFromOrganisation)
-    .put(verifyToken, addEmployeeInOrganisation)
+    .put(verifyToken, addEmployeeInOrganisation)  
+    
 module.exports = router;
