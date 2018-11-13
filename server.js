@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('config');
 const loggerHelper = require('./loggerHelper');
-const jsonWebToken = require('jsonwebtoken');
 
 //Controllers
 const employeeController = require('./controller/employee');

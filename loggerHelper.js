@@ -2,7 +2,6 @@ const winston = require('winston');
 const rotateFile = require('winston-daily-rotate-file');
 const config = require('config')
 const Path = require('path');
-const mkdirp = require('mkdirp');
 const moment = require('moment');
 
 //This class has functionality to configure winston logger for console as well as rotate files

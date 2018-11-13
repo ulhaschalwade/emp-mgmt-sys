@@ -38,7 +38,7 @@ async function addUser(req, res) {
             username: req.body.username,
             password: req.body.password,
         }
-        let result = await userService.addUser(user);
+        await userService.addUser(user);
         res.json({ success: true });
     }
     catch (error) {
