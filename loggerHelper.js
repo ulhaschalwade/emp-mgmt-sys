@@ -5,6 +5,7 @@ const Path = require('path');
 const mkdirp = require('mkdirp');
 const moment = require('moment');
 
+//This class has functionality to configure winston logger for console as well as rotate files
 class LoggerHelper {
     init() {
         this.setupWinstonBasics();
@@ -14,6 +15,7 @@ class LoggerHelper {
         this.setupGlobalLogger(logger);
     }
 
+    //Setup basic configuration for logs
     setupWinstonBasics() {
         winston.addColors({
             debug: 'blue',
@@ -23,6 +25,7 @@ class LoggerHelper {
         });
     }
 
+    //Configure console and rotate file transports
     setupWinstonTransports() {
         return winston.createLogger({
             transports: [
@@ -50,10 +53,12 @@ class LoggerHelper {
         });
     }
 
+    //Check if logs directory exists, if not create a new directory
     ensureDirectory() {
         Path.join(__dirname, './logs');
     }
 
+    // Make logger instance available at global['logger']
     setupGlobalLogger(logger) {
         global['logger'] = logger;
         global['logger'].info("Logger is available at global['logger']");
