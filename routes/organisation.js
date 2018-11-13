@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const orgController = require('../../controller/organisation/organisation');
-const verifyToken = require('../../middlerware/authentication');
+const orgController = require('../controller/organisation');
+const verifyToken = require('../middlerware/authentication');
 router.route('/')
     .get(verifyToken, orgController.getAllOrganisations)
     .post(verifyToken, orgController.addNewOrganisation)

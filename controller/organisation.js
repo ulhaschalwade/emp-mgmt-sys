@@ -1,4 +1,4 @@
-const orgService = require('../../service/organisation/organisation');
+const orgService = require('../service/organisation');
 
 class OrganisationController {
 

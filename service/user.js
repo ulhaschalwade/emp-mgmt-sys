@@ -1,5 +1,5 @@
 const request = require('request');
-const userModel = require('../../schema/user/user');
+const userModel = require('../models/user');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuidv4');

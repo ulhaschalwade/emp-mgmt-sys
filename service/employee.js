@@ -1,4 +1,4 @@
-const EmployeeModel = require('../../schema/employee/employee');
+const EmployeeModel = require('../models/employee');
 class empServices {
     async getEmployees() {
         global['logger'].debug('Request for get all employee received...');

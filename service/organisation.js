@@ -1,4 +1,4 @@
-const orgModel = require('../../schema/organisation/organisation');
+const orgModel = require('../models/organisation');
 class OrganisationService {
     async getAllOrganisations() {
         global['logger'].debug('Request for get all organisations received..');
