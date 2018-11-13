@@ -7,10 +7,10 @@ const config = require('config');
 const loggerHelper = require('./loggerHelper');
 const jsonWebToken = require('jsonwebtoken');
 
-//routes to be used
-const employeeRoutes = require('./routes/employee.js');
-const organisationRoutes = require('./routes/organisation.js');
-const userRoutes = require('./routes/user.js');
+//Controllers
+const employeeController = require('./controller/employee');
+const organisationController = require('./controller/organisation');
+const userController = require('./controller/user');
 
 class ApplicationServer {
     constructor() {
@@ -25,7 +25,7 @@ class ApplicationServer {
 
     async init() {
         this.setupMiddlewares();
-        this.setupRoutes();
+        this.registerControllers();
         this.initializeLogger();
         this.connectToDB();
     }
@@ -47,11 +47,11 @@ class ApplicationServer {
 
     }
 
-    //Register routes
-    setupRoutes() {
-        this.emsApp.use(config.get('EMPLOYEE_CONTROLLER_BASEPATH'), employeeRoutes);
-        this.emsApp.use(config.get('ORGANISATION_CONTROLLER_BASEPATH'), organisationRoutes);
-        this.emsApp.use(config.get('USER_CONTROLLER_BASEPATH'), userRoutes);
+    //Register controllers
+    registerControllers() {
+        this.emsApp.use(config.get('EMPLOYEE_CONTROLLER_BASEPATH'), employeeController);
+        this.emsApp.use(config.get('ORGANISATION_CONTROLLER_BASEPATH'), organisationController);
+        this.emsApp.use(config.get('USER_CONTROLLER_BASEPATH'), userController);
     }
 
     //Initialize logger
