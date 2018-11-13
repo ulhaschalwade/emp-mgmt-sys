@@ -29,14 +29,7 @@ class OrganisationController {
     async updateOrganisationById(req, res) {
         try {
             global['logger'].info('Request for update organisation by id received');
-            let updatedObj = {
-            }
-            for (let key in req.body) {
-                if (req.body.hasOwnProperty(key)) {
-                    updatedObj[key] = req.body[key];
-                }
-            }
-            let updatedOrganisation = await orgService.updateOrganisationById(req.params.orgId, updatedObj);
+            let updatedOrganisation = await orgService.updateOrganisationById(req.params.orgId, req.body);
             res.json(updatedOrganisation);
         }
         catch (error) {
