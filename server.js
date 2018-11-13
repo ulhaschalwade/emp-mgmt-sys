@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('config');
-const loggerHelper = require('./logger-helper');
+const loggerHelper = require('./loggerHelper');
 
 const jsonWebToken = require('jsonwebtoken');
 
