@@ -5,14 +5,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('config');
 const loggerHelper = require('./loggerHelper');
-
 const jsonWebToken = require('jsonwebtoken');
 
-//routes
+//routes to be used
 const employeeRoutes = require('./routes/employee/employee.js');
 const organisationRoutes = require('./routes/organisation/organisation.js');
 const userRoutes = require('./routes/user/user.js');
-
 
 class ApplicationServer {
     constructor() {
@@ -32,8 +30,8 @@ class ApplicationServer {
         this.connectToDB();
     }
 
+    //setup all required middlewares
     setupMiddlewares() {
-        //middlewares
         this.emsApp.use(bodyParser.urlencoded({ extended: true }))
         this.emsApp.use(bodyParser.json());
         this.emsApp.use(cors({
@@ -49,13 +47,14 @@ class ApplicationServer {
 
     }
 
+    //Register routes
     setupRoutes() {
-        //Register routes
         this.emsApp.use('/api/employee', employeeRoutes);
         this.emsApp.use('/api/organisation', organisationRoutes);
         this.emsApp.use('/api/user', userRoutes);
     }
 
+    //Initialize logger
     async initializeLogger() {
         try {
             let loggerHelperInstance = new loggerHelper();
@@ -68,8 +67,8 @@ class ApplicationServer {
         }
     }
 
+    //database connection
     async connectToDB() {
-        //database connection
         try {
             let result = await mongoose.connect(config.get("DB_CONFIG"), { useNewUrlParser: true });
             result.connection.on('connected', () => {
