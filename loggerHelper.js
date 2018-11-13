@@ -1,7 +1,7 @@
 const winston = require('winston');
 const rotateFile = require('winston-daily-rotate-file');
 const config = require('config')
-const path = require('path');
+const Path = require('path');
 const mkdirp = require('mkdirp');
 const moment = require('moment');
 
@@ -39,7 +39,7 @@ class LoggerHelper {
                     prettyPrint: true,
                     silent: false,
                     colorize: true,
-                    filename: path.join(__dirname, "./logs", config.get("LOG_FILENAME")),
+                    filename: Path.join(__dirname, "./logs", config.get("LOG_FILENAME")),
                     timestamp: () => moment(new Date()).format('YYYY-MM-DD hh:mm:ss'),
                     json: false,
                     maxFiles: 10,
@@ -51,7 +51,7 @@ class LoggerHelper {
     }
 
     ensureDirectory() {
-        path.join(__dirname, './logs');
+        Path.join(__dirname, './logs');
     }
 
     setupGlobalLogger(logger) {

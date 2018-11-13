@@ -1,5 +1,5 @@
-const orgModel = require('./schema');
-class orgServices {
+const orgModel = require('../../schema/organisation/organisation');
+class OrganisationService {
     async getAllOrganisations() {
         let organisations = await orgModel.find();
         return organisations;
@@ -103,4 +103,4 @@ class orgServices {
         }
     }
 }
-module.exports = new orgServices();
+module.exports = new OrganisationService();

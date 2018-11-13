@@ -1,4 +1,4 @@
-const EmployeeModel = require('./schema');
+const EmployeeModel = require('../../schema/employee/employee');
 class empServices {
     async getEmployees(req) {
         let employees = await EmployeeModel.find();

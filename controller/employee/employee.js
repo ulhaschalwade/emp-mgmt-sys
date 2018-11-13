@@ -1,5 +1,5 @@
-const empService = require('./employee-service')
-class empController {
+const empService = require('../../service/employee/employee');
+class EmployeeController {
     async getEmployees(req, res) {
         try {
             global['logger'].debug('Request for get all employees received');
@@ -70,4 +70,4 @@ class empController {
         }
     }
 }
-module.exports = new empController();
+module.exports = new EmployeeController();

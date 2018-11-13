@@ -2,19 +2,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Path = require('path');
 const cors = require('cors');
 const config = require('config');
-const LoggerHelper = require('./logger-helper');
+const loggerHelper = require('./loggerHelper');
 
 const jsonWebToken = require('jsonwebtoken');
+
 //routes
-const empPluginRoutes = require('./Employee/routes');
-const orgPluginRoutes = require('./Organisation/routes');
-const usersPluginRoutes = require('./User/routes');
+const employeeRoutes = require('./routes/employee/employee.js');
+const organisationRoutes = require('./routes/organisation/organisation.js');
+const userRoutes = require('./routes/user/user.js');
 
 
-class TestServer {
+class ApplicationServer {
     constructor() {
         this.emsApp = express();
     }
@@ -46,22 +46,20 @@ class TestServer {
                 }
             }
         }))
-        
 
     }
 
     setupRoutes() {
-        //Register plugins/routes
-        this.emsApp.use('/api/employee', empPluginRoutes);
-        this.emsApp.use('/api/organisation', orgPluginRoutes);
-        this.emsApp.use('/api/user', usersPluginRoutes);
-        this.emsApp.use(express.static('static'));
+        //Register routes
+        this.emsApp.use('/api/employee', employeeRoutes);
+        this.emsApp.use('/api/organisation', organisationRoutes);
+        this.emsApp.use('/api/user', userRoutes);
     }
 
     async initializeLogger() {
         try {
-            let loggerHelper = new LoggerHelper();
-            loggerHelper.init();
+            let loggerHelperInstance = new loggerHelper();
+            loggerHelperInstance.init();
             this.logger = global['logger'];
         }
         catch (error) {
@@ -100,7 +98,7 @@ class TestServer {
 
 }
 
-let server = new TestServer();
+let server = new ApplicationServer();
 server.start();
 server.emsApp.listen(config.get("PORT_NUMBER"), () => {
     server.logger.info(`Server is listing on port ${config.get("PORT_NUMBER")}`);
