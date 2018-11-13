@@ -19,7 +19,7 @@ class ApplicationServer {
 
     async start() {
         await this.init();
-        this.emsApp.emit('expressServerStarted', "Express server started..");
+        this.emsApp.emit('expressServerStarted', 'Express server started..');
         console.log(`Server started..`)
     }
 
@@ -37,7 +37,7 @@ class ApplicationServer {
         this.emsApp.use(cors({
             origin: (origin, callback) => {
                 this.logger.debug(`Request origin: ${origin}`);
-                if (!origin || config.get("ALLOWED_REQUEST_ORIGINS").indexOf(origin) !== -1) {
+                if (!origin || config.get('ALLOWED_REQUEST_ORIGINS').indexOf(origin) !== -1) {
                     callback(null, true);
                 } else {
                     callback(new Error('Accessing this resource is not allowed due to CORS!!'));
@@ -70,9 +70,9 @@ class ApplicationServer {
     //database connection
     async connectToDB() {
         try {
-            let result = await mongoose.connect(config.get("DB_CONFIG"), { useNewUrlParser: true });
+            let result = await mongoose.connect(config.get('DB_CONFIG'), { useNewUrlParser: true });
             result.connection.on('connected', () => {
-                this.logger.info("Database connection established..");
+                this.logger.info('Database connection established..');
             })
             result.connection.on('error', (error) => {
                 this.logger.error(`Error occured while connecting to database.. \nError details: ${error}`);
@@ -99,7 +99,7 @@ class ApplicationServer {
 
 let server = new ApplicationServer();
 server.start();
-server.emsApp.listen(config.get("PORT_NUMBER"), () => {
+server.emsApp.listen(config.get('PORT_NUMBER'), () => {
     server.logger.info(`Server is listing on port ${config.get('PORT_NUMBER')}`);
 })
 module.exports = server;
