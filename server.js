@@ -8,9 +8,9 @@ const loggerHelper = require('./loggerHelper');
 const jsonWebToken = require('jsonwebtoken');
 
 //routes to be used
-const employeeRoutes = require('./routes/employee/employee.js');
-const organisationRoutes = require('./routes/organisation/organisation.js');
-const userRoutes = require('./routes/user/user.js');
+const employeeRoutes = require('./routes/employee.js');
+const organisationRoutes = require('./routes/organisation.js');
+const userRoutes = require('./routes/user.js');
 
 class ApplicationServer {
     constructor() {
@@ -49,9 +49,9 @@ class ApplicationServer {
 
     //Register routes
     setupRoutes() {
-        this.emsApp.use('/api/employee', employeeRoutes);
-        this.emsApp.use('/api/organisation', organisationRoutes);
-        this.emsApp.use('/api/user', userRoutes);
+        this.emsApp.use(config.get('EMPLOYEE_CONTROLLER_BASEPATH'), employeeRoutes);
+        this.emsApp.use(config.get('ORGANISATION_CONTROLLER_BASEPATH'), organisationRoutes);
+        this.emsApp.use(config.get('USER_CONTROLLER_BASEPATH'), userRoutes);
     }
 
     //Initialize logger
