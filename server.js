@@ -50,11 +50,10 @@ class ApplicationServer {
     }
 
     setupRoutes() {
-        //Register plugins/routes
+        //Register routes
         this.emsApp.use('/api/employee', employeeRoutes);
         this.emsApp.use('/api/organisation', organisationRoutes);
         this.emsApp.use('/api/user', userRoutes);
-        this.emsApp.use(express.static('static'));
     }
 
     async initializeLogger() {
