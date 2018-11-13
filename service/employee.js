@@ -1,5 +1,6 @@
 const EmployeeModel = require('../models/employee');
 const logger = global['logger'];
+
 class empServices {
     async getEmployees() {
         logger.debug('Request for get all employee received...');
@@ -45,4 +46,5 @@ class empServices {
         return employeeRecord;
     }
 }
+
 module.exports = new empServices();

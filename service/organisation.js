@@ -1,5 +1,6 @@
 const orgModel = require('../models/organisation');
 const logger = global['logger'];
+
 class OrganisationService {
     async getAllOrganisations() {
         logger.debug('Request for get all organisations received..');
@@ -89,4 +90,5 @@ class OrganisationService {
         return result;
     }
 }
+
 module.exports = new OrganisationService();
