@@ -9,7 +9,7 @@ after(async (done) => {
     await testServer.shutdownServer();
     console.log(`Server closed after running test cases..`);
     done();
-    // let server = testServer.emsApp.listen(config.get("PORT_NUMBER"));
+    // let server = testServer.emsApp.listen(config.get('PORT_NUMBER'));
     // server.close(() => {
     //     console.log(`Server closed after running test cases..`);
     //     done();

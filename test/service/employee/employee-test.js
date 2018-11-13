@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 const expect = require('chai').expect;
-const baseUri = "http://localhost:3000";
+const baseUri = 'http://localhost:3000';
 const request = require('request');
 describe('Employee', () => {
     let firstEmployeeId = null;
@@ -12,7 +12,7 @@ describe('Employee', () => {
             })
         })
 
-        it("get all employees should return 0 employees", (done) => {
+        it('get all employees should return 0 employees', (done) => {
             request.get({ uri: baseUri + '/api/employee/' }, (error, response, body) => {
                 expect(response.statusCode).to.equal(200);
                 let result = JSON.parse(body);
@@ -23,14 +23,14 @@ describe('Employee', () => {
         })
     })
 
-    describe("Add an employee", () => {
+    describe('Add an employee', () => {
         let firstEmployee = {
             firstName: 'Ulhas',
             lastName: 'Chalawade',
             emailId: 'ulhas.chalawade@globant.com',
             contactNumber: 7709792030,
             designation: 'NA',
-            department: "NA"
+            department: 'NA'
         }
 
         let secondEmployee = {
@@ -39,7 +39,7 @@ describe('Employee', () => {
             emailId: 'ulhas.chalawade1@globant.com',
             contactNumber: 7709792031,
             designation: 'NA',
-            department: "NA"
+            department: 'NA'
         }
 
         it('add new employee', (done) => {
@@ -69,9 +69,9 @@ describe('Employee', () => {
         })
     })
 
-    describe("Get All Employees", () => {
+    describe('Get All Employees', () => {
         let getAllEmployeeResult = [];
-        it("returns all employees", (done) => {
+        it('returns all employees', (done) => {
             request.get({ uri: baseUri + '/api/employee/' }, (error, response, body) => {
                 expect(response.statusCode).to.equal(200);
                 getAllEmployeeResult = JSON.parse(body);
@@ -84,9 +84,9 @@ describe('Employee', () => {
         })
     })
 
-    describe("Operations using Id", () => {
+    describe('Operations using Id', () => {
         let firstEmployee = [];
-        it("returns employee by given id", (done) => {
+        it('returns employee by given id', (done) => {
             request.get({ uri: baseUri + '/api/employee/' + firstEmployeeId }, (error, response, body) => {
                 expect(response.statusCode).to.equal(200);
                 firstEmployee = JSON.parse(body);

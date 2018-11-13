@@ -3,5 +3,8 @@
     "DB_CONFIG": "mongodb://localhost:27017/ems",
     "LOG_LEVEL": "debug",
     "CONSOLE_LOG_LEVEL": "debug",
-    "LOG_FILENAME": "emp-mgmt-sys.%DATE%.log"
+    "LOG_FILENAME": "emp-mgmt-sys.%DATE%.log",
+    "EMPLOYEE_CONTROLLER_BASEPATH": "/api/employee",
+    "ORGANISATION_CONTROLLER_BASEPATH": "/api/organisation",
+    "USER_CONTROLLER_BASEPATH": "/api/user"
 }

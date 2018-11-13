@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../../controller/user/user');
-const verifyToken = require('../../authentication/authenticationMiddleware');
+const userController = require('../controller/user');
+const verifyToken = require('../middlerware/authentication');
 router.route('/gitUsers')
     .get(verifyToken, userController.getAllUsers)
 router.route('/gitUsers/:username')
