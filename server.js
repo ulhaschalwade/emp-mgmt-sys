@@ -18,7 +18,6 @@ class ApplicationServer {
 
     async start() {
         await this.init();
-        this.emsApp.emit('expressServerStarted', 'Express server started..');
         console.log(`Server started..`)
     }
 
@@ -56,7 +55,7 @@ class ApplicationServer {
     //Initialize logger
     async initializeLogger() {
         try {
-            let loggerHelperInstance = new loggerHelper();
+            const loggerHelperInstance = new loggerHelper();
             loggerHelperInstance.init();
             this.logger = global['logger'];
         }
@@ -69,7 +68,7 @@ class ApplicationServer {
     //database connection
     async connectToDB() {
         try {
-            let result = await mongoose.connect(config.get('DB_CONFIG'), { useNewUrlParser: true });
+            const result = await mongoose.connect(config.get('DB_CONFIG'), { useNewUrlParser: true });
             result.connection.on('connected', () => {
                 this.logger.info('Database connection established..');
             })
@@ -98,8 +97,5 @@ class ApplicationServer {
 
 const server = new ApplicationServer();
 server.start();
-server.emsApp.listen(config.get('PORT_NUMBER'), () => {
-    server.logger.info(`Server is listing on port ${config.get('PORT_NUMBER')}`);
-})
 
 module.exports = server;

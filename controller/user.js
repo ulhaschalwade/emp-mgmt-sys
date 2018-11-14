@@ -4,10 +4,18 @@ const router = express.Router();
 const verifyToken = require('../middlerware/authentication');
 const logger = global['logger'];
 
+//Routes
+router.route('/gitUsers')
+    .get(verifyToken, getAllUsers)
+router.route('/gitUsers/:username')
+    .get(verifyToken, getUserByUsername)
+router.post('/addUser', addUser);
+router.post('/authenticate', authenticateUser);
+
 async function getAllUsers(req, res) {
     try {
         logger.info('Request for get all external users received');
-        let users = await userService.getAllUsers();
+        const users = await userService.getAllUsers();
         res.json(users);
     }
     catch (error) {
@@ -19,7 +27,7 @@ async function getAllUsers(req, res) {
 async function getUserByUsername(req, res) {
     try {
         logger.info('Request for get user by username received.');
-        let user = await userService.getUserByUsername(req.params.username);
+        const user = await userService.getUserByUsername(req.params.username);
         res.json(user);
     }
     catch (error) {
@@ -50,7 +58,7 @@ async function addUser(req, res) {
 async function authenticateUser(req, res) {
     try {
         logger.info('Request for authenticate user received');
-        let result = await userService.authenticateUser(req.body.username, req.body.password);
+        const result = await userService.authenticateUser(req.body.username, req.body.password);
         res.json(result);
     }
     catch (error) {
@@ -58,13 +66,5 @@ async function authenticateUser(req, res) {
         res.send(error);
     }
 }
-
-//Routes
-router.route('/gitUsers')
-    .get(verifyToken, getAllUsers)
-router.route('/gitUsers/:username')
-    .get(verifyToken, getUserByUsername)
-router.post('/addUser', addUser);
-router.post('/authenticate', authenticateUser);
 
 module.exports = router;

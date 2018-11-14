@@ -4,10 +4,21 @@ const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middlerware/authentication');
 
+//Routes
+router.route('/')
+    .get(verifyToken, getEmployees)
+    .post(verifyToken, addEmployee)
+    .delete(verifyToken, deleteAllEmployees)
+
+router.route('/:empId')
+    .get(verifyToken, getEmployeeById)
+    .put(verifyToken, updateEmployeeById)
+    .delete(verifyToken, deleteEmployeeById)
+
 async function getEmployees(req, res) {
     try {
         logger.info('Request for get all employees received');
-        let employees = await empService.getEmployees(req);
+        const employees = await empService.getEmployees(req);
         res.json(employees);
     }
     catch (error) {
@@ -19,7 +30,7 @@ async function getEmployees(req, res) {
 async function deleteAllEmployees(req, res) {
     try {
         logger.info('Request for delete all employees received');
-        let employees = await empService.deleteAllEmployees(req);
+        const employees = await empService.deleteAllEmployees(req);
         res.json(employees);
     }
     catch (error) {
@@ -31,7 +42,7 @@ async function deleteAllEmployees(req, res) {
 async function addEmployee(req, res) {
     try {
         logger.info('Request for add new employee received..');
-        let employeeObj = await empService.addEmployee(req.body);
+        const employeeObj = await empService.addEmployee(req.body);
         res.json(employeeObj);
     }
     catch (error) {
@@ -43,7 +54,7 @@ async function addEmployee(req, res) {
 async function getEmployeeById(req, res) {
     try {
         logger.info('Request for get employee by id received..');
-        let employeeRecord = await empService.getEmployeeById(req.params.empId);
+        const employeeRecord = await empService.getEmployeeById(req.params.empId);
         res.json(employeeRecord);
     }
     catch (error) {
@@ -55,7 +66,7 @@ async function getEmployeeById(req, res) {
 async function updateEmployeeById(req, res) {
     try {
         logger.info('Request for update employee received..');
-        let employeeRecord = await empService.updateEmployeeById(req.params.empId, req.body);
+        const employeeRecord = await empService.updateEmployeeById(req.params.empId, req.body);
         res.json(employeeRecord);
     }
     catch (error) {
@@ -67,7 +78,7 @@ async function updateEmployeeById(req, res) {
 async function deleteEmployeeById(req, res) {
     try {
         logger.info('Request for delete employee received..');
-        let employeeRecord = await empService.deleteEmployeeById(req.params.empId);
+        const employeeRecord = await empService.deleteEmployeeById(req.params.empId);
         res.json(employeeRecord);
     }
     catch (error) {
@@ -75,16 +86,5 @@ async function deleteEmployeeById(req, res) {
         res.send(error);
     }
 }
-
-//Routes
-router.route('/')
-    .get(verifyToken, getEmployees)
-    .post(verifyToken, addEmployee)
-    .delete(verifyToken, deleteAllEmployees)
-
-router.route('/:empId')
-    .get(verifyToken, getEmployeeById)
-    .put(verifyToken, updateEmployeeById)
-    .delete(verifyToken, deleteEmployeeById)
     
 module.exports = router;
