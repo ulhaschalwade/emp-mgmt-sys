@@ -62,7 +62,6 @@ class LoggerHelper {
         global['logger'] = logger;
         global['logger'].info(`Logger is available at global['logger']`);
     }
-
 }
 
 module.exports = LoggerHelper;

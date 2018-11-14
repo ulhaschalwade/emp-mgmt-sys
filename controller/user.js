@@ -1,4 +1,4 @@
-const userService = require('../service/user');
+const userService = require('../services/user');
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middlerware/authentication');

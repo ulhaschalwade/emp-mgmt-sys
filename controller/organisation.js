@@ -1,4 +1,4 @@
-const orgService = require('../service/organisation');
+const orgService = require('../services/organisation');
 const logger = global['logger'];
 const express = require('express');
 const router = express.Router();

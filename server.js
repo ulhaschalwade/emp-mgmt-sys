@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('config');
 const loggerHelper = require('./loggerHelper');
-
-//Controllers
 const employeeController = require('./controller/employee');
 const organisationController = require('./controller/organisation');
 const userController = require('./controller/user');
@@ -42,7 +40,6 @@ class ApplicationServer {
                 }
             }
         }))
-
     }
 
     //Register controllers
@@ -81,21 +78,7 @@ class ApplicationServer {
             throw error;
         }
     }
-
-    async shutdownServer() {
-        try {
-            await mongoose.connection.dropDatabase();
-            process.exit();
-        }
-        catch (error) {
-            this.logger.error(`Error occured while shuting down the server.\n Error details ${error}`);
-            throw error;
-        }
-    }
-
 }
 
 const server = new ApplicationServer();
 server.start();
-
-module.exports = server;
