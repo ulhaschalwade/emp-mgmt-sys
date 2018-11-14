@@ -1,4 +1,4 @@
-const empService = require('../service/employee');
+const empService = require('../services/employee');
 const logger = global['logger'];
 const express = require('express');
 const router = express.Router();
